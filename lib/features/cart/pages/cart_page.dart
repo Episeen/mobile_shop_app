@@ -89,18 +89,77 @@ class _CartPageState extends State<CartPage> {
                           topRight: Radius.circular(30),
                         ),
                       ),
-                      child: ListView.builder(
-                        padding: EdgeInsets.only(top: 34),
-                        itemCount: products.length,
-                        itemBuilder: (BuildContext context, int i) {
-                            return CartItemsTile(
-                              cartItemTitle: products[i].title,
-                              cartItemPrice: '\$${products[i]
-                                      .price
-                                      .toStringAsFixed(2)}',
-                              cartItemImage: products[i].image,
-                            );
-                        },
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        // padding: EdgeInsets.only(top: 34),
+                        children: [
+                          Expanded(
+                            child: ListView(
+                              children: [
+                                for (int i = 0; i < products.length; i++)
+                                  CartItemsTile(
+                                    cartItemTitle: products[i].title,
+                                    cartItemPrice:
+                                        '\$${products[i].price.toStringAsFixed(2)}',
+                                    cartItemImage: products[i].image,
+                                  ),
+                                const Divider(color: Colors.white, height: 25),
+                                SizedBox(height: 15),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 50),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        'Total',
+                                        style: AppTextStyles.txt15w400.copyWith(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Text(
+                                        '\$6,000 US}',
+                                        style: AppTextStyles.txt15w400.copyWith(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: 12),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 50),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        'Delivery',
+                                        style: AppTextStyles.txt15w400.copyWith(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Text(
+                                        'Free',
+                                        style: AppTextStyles.txt15w400.copyWith(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: 15),
+                                const Divider(color: Colors.white),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 22, vertical: 15),
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              child: Text('Checkout'),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),

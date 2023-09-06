@@ -17,27 +17,15 @@ class DetailsPage extends StatefulWidget {
 class _DetailsPageState extends State<DetailsPage>
     with SingleTickerProviderStateMixin {
   late final DetailsBloc bloc = context.read<DetailsBloc>();
-
-  // static const List<Tab> myTabs = <Tab>[
-  //   Tab(text: 'Shop'),
-  //   Tab(text: 'Details'),
-  //   Tab(text: 'Features'),
-  // ];
-
-  //late TabController _tabController;
+  bool likeToggle = true;
+  bool colorToggle = true;
+  bool memoryToggle = true;
 
   @override
   void initState() {
     bloc.add(const DetailsEvent.fetch());
-    // _tabController = TabController(vsync: this, length: myTabs.length);
     super.initState();
   }
-
-  // @override
-  // void dispose() {
-  //   _tabController.dispose();
-  //   super.dispose();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -133,11 +121,22 @@ class _DetailsPageState extends State<DetailsPage>
                                               BorderRadius.circular(10),
                                           color: AppColors.colorBlue,
                                         ),
-                                        child: const Center(
-                                          child: Icon(
-                                            Icons.favorite_border_sharp,
-                                            color: Colors.white,
-                                            size: 22,
+                                        child: Center(
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              likeToggle = !likeToggle;
+                                              setState(() {});
+                                            },
+                                            child: likeToggle
+                                                ? const Icon(
+                                                    Icons.favorite_border_sharp,
+                                                    color: Colors.white,
+                                                    size: 22)
+                                                : const Icon(
+                                                    Icons.favorite,
+                                                    color: Colors.red,
+                                                    size: 22,
+                                                  ),
                                           ),
                                         ),
                                       ),
@@ -191,123 +190,216 @@ class _DetailsPageState extends State<DetailsPage>
                               ),
                               Container(
                                 height: 85,
-                                child: TabBarView(
-                                    // controller: _tabController,
-                                    children: [
-                                      const Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 33, left: 35, right: 34),
-                                        child: Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.stretch,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            DetailsSection(
-                                              svgPicture:
-                                                  'assets/icons/processor.svg',
-                                              text: 'Exynos 990',
-                                            ),
-                                            DetailsSection(
-                                              svgPicture:
-                                                  'assets/icons/camera.svg',
-                                              text: '108 + 12 mp',
-                                            ),
-                                            DetailsSection(
-                                              svgPicture:
-                                                  'assets/icons/internal_memory.svg',
-                                              text: '8 GB',
-                                            ),
-                                            DetailsSection(
-                                              svgPicture:
-                                                  'assets/icons/external_memory.svg',
-                                              text: '256 GB',
-                                            ),
-                                          ],
+                                child: TabBarView(children: [
+                                  const Padding(
+                                    padding: EdgeInsets.only(
+                                        top: 33, left: 35, right: 34),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        DetailsSection(
+                                          svgPicture:
+                                              'assets/icons/processor.svg',
+                                          text: 'Exynos 990',
                                         ),
-                                      ),
-                                      Container(
-                                          child: Center(
-                                              child: Text(
-                                        'No information provided',
-                                      ))),
-                                      Container(
-                                          child: Center(
-                                              child: Text(
-                                        'No features provided',
-                                      ))),
-                                    ]),
+                                        DetailsSection(
+                                          svgPicture: 'assets/icons/camera.svg',
+                                          text: '108 + 12 mp',
+                                        ),
+                                        DetailsSection(
+                                          svgPicture:
+                                              'assets/icons/internal_memory.svg',
+                                          text: '8 GB',
+                                        ),
+                                        DetailsSection(
+                                          svgPicture:
+                                              'assets/icons/external_memory.svg',
+                                          text: '256 GB',
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                      child: const Center(
+                                          child: Text(
+                                    'No information provided',
+                                  ))),
+                                  Container(
+                                      child: const Center(
+                                          child: Text(
+                                    'No features provided',
+                                  ))),
+                                ]),
                               ),
-                              Padding(
+                              const Padding(
                                 padding: EdgeInsets.only(top: 18, left: 35),
                                 child: Text('Select color and capacity',
                                     style: AppTextStyles.txt16w500),
                               ),
                               Padding(
-                                padding: EdgeInsets.only(top: 14, left: 35),
+                                padding:
+                                    const EdgeInsets.only(top: 14, left: 35),
                                 child: Row(
                                   children: [
-                                    Container(
-                                      height: 39,
-                                      width: 39,
-                                      margin: EdgeInsets.only(right: 19),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(33),
-                                        color: Colors.brown,
-                                        // color: Color( (phoneDetails.color[0].substring(1))),
+                                    GestureDetector(
+                                      onTap: () {
+                                        colorToggle = !colorToggle;
+                                        setState(() {});
+                                      },
+                                      child: Container(
+                                        height: 39,
+                                        width: 39,
+                                        margin:
+                                            const EdgeInsets.only(right: 19),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(33),
+                                          color: Colors.brown,
+                                          // color: Color( (phoneDetails.color[0].substring(1))),
+                                        ),
+                                        child: colorToggle
+                                            ? Icon(Icons.done_outlined,
+                                                color: Colors.white, size: 25)
+                                            : null,
                                       ),
                                     ),
-                                    Container(
-                                      height: 39,
-                                      width: 39,
-                                      margin: EdgeInsets.only(right: 19),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(33),
-                                        color: Colors.black,
+                                    GestureDetector(
+                                      onTap: () {
+                                        colorToggle = !colorToggle;
+                                        setState(() {});
+                                      },
+                                      child: Container(
+                                        height: 39,
+                                        width: 39,
+                                        margin:
+                                            const EdgeInsets.only(right: 19),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(33),
+                                          color: Colors.black,
+                                        ),
+                                        child: !colorToggle
+                                            ? Icon(Icons.done_outlined,
+                                                color: Colors.white, size: 25)
+                                            : null,
                                       ),
                                     ),
-                                    Container(
-                                      height: 30,
-                                      width: 71,
-                                      margin:
-                                          EdgeInsets.only(right: 19, left: 29),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: AppColors.colorOrange,
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          phoneDetails.capacity[0],
-                                          style: AppTextStyles.txt13w700
-                                              .copyWith(color: Colors.white),
+                                    GestureDetector(
+                                      onTap: () {
+                                        memoryToggle = !memoryToggle;
+                                        setState(() {});
+                                      },
+                                      child: Container(
+                                        height: 30,
+                                        width: 71,
+                                        margin: const EdgeInsets.only(
+                                            right: 19, left: 29),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: memoryToggle
+                                              ? AppColors.colorOrange
+                                              : Colors.white,
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            phoneDetails.capacity[0],
+                                            style: AppTextStyles.txt13w700
+                                                .copyWith(
+                                              color: memoryToggle
+                                                  ? Colors.white
+                                                  : AppColors.colorGreyDark,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ),
-                                    Container(
-                                      height: 30,
-                                      width: 71,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: AppColors.colorOrange,
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          phoneDetails.capacity[1],
-                                          style: AppTextStyles.txt13w700
-                                              .copyWith(color: Colors.white),
+                                    GestureDetector(
+                                      onTap: () {
+                                        memoryToggle = !memoryToggle;
+                                        setState(() {});
+                                      },
+                                      child: Container(
+                                        height: 30,
+                                        width: 71,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: !memoryToggle
+                                              ? AppColors.colorOrange
+                                              : Colors.white,
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            phoneDetails.capacity[1],
+                                            style: AppTextStyles.txt13w700
+                                                .copyWith(
+                                              color: !memoryToggle
+                                                  ? Colors.white
+                                                  : AppColors.colorGreyDark,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                              Container(
-                                height: 54,
-                                width: 355,
-                                margin: EdgeInsets.only(left: 35, right: 35, top: 27, bottom: 20),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: AppColors.colorOrange,
+                              // Container(
+                              //   height: 54,
+                              //   width: 355,
+                              //   margin: const EdgeInsets.only(
+                              //       left: 35, right: 35, top: 27, bottom: 20),
+                              //   decoration: BoxDecoration(
+                              //     borderRadius: BorderRadius.circular(10),
+                              //     color: AppColors.colorOrange,
+                              //   ),
+                              //   child: Row(
+                              //     mainAxisAlignment:
+                              //         MainAxisAlignment.spaceBetween,
+                              //     children: [
+                              //       Padding(
+                              //         padding: const EdgeInsets.only(left: 40),
+                              //         child: Text('Add to cart',
+                              //             style: AppTextStyles.txt20w700
+                              //                 .copyWith(color: Colors.white)),
+                              //       ),
+                              //       Padding(
+                              //         padding: const EdgeInsets.only(right: 40),
+                              //         child: Text(
+                              //           '\$${phoneDetails.price}',
+                              //           style: AppTextStyles.txt20w700.copyWith(
+                              //             color: Colors.white,
+                              //           ),
+                              //         ),
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 25),
+                                child: ElevatedButton(
+                                  onPressed: () {},
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 40),
+                                          child: Text('Add to cart'),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 40),
+                                          child: Text(
+                                            '\$${phoneDetails.price}',
+                                          ),
+                                        ),
+                                      ]),
                                 ),
                               ),
                             ],
